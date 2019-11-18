@@ -45,7 +45,7 @@ class Create extends React.Component{
         console.log('button clicked');
        alert("A recipe record was submitted: " + this.state.RecipeName +"  " + this.state.RecipeCategory
         + "  "+ this.state.Picture + " "+ this.state.Ingredients + " "+ this.state.Method + " "+ this.state.Images);
-
+        //const newRecipe in edit.js
         const recipeObject ={
             recipename:this.state.RecipeName,
             recipecategory:this.state.RecipeCategory,
@@ -57,8 +57,8 @@ class Create extends React.Component{
         axios.post('http://localhost:4000/api/recipes', recipeObject)
         .then(res => console.log(res.data))
         .catch();
-        
-        this.setState({RecipeName:'', RecipeCategory:'', Picture:'', Ingredients:'', Method:'', Images:''});
+        //not included in the solution for express lab
+        //this.setState({RecipeName:'', RecipeCategory:'', Picture:'', Ingredients:'', Method:'', Images:''});
     }
     render(){
         return(

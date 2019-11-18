@@ -52,10 +52,11 @@ class Edit extends React.Component{
     handleSubmit(e){
         e.preventDefault();
        
-       alert("A recipe record was Edited: " + this.state.RecipeName +"  " + this.state.RecipeCategory
+       alert("A recipe record was Edited: Recipe Name" + this.state.RecipeName +"  " + this.state.RecipeCategory
         + "  "+ this.state.Picture);// + " "+ this.state.Ingredients + " "+ this.state.Method + " "+ this.state.Images);
 
         const newRecipe ={
+
             recipename:this.state.RecipeName,
             recipecategory:this.state.RecipeCategory,
             picture:this.state.Picture,
@@ -67,10 +68,10 @@ class Edit extends React.Component{
         .then()
         .catch();
 
-        this.setState({RecipeName:'',
+        /*this.setState({RecipeName:'',
                         RecipeCategory: '',
                         Picture: '',
-                    _id:''});
+                    _id:''});*/
     }
     render(){
         return(

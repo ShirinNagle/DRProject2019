@@ -5,7 +5,7 @@ import Content from './components/content';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import Create from './components/create';
 import Read from './components/read';
 import Edit from './components/edit';

@@ -10,10 +10,9 @@ class Read extends React.Component{
     };
 
     componentDidMount(){
-        axios.get(
-        "http://localhost:4000/api/recipes")
+        axios.get("http://localhost:4000/api/recipes")
         .then((response) =>{
-            this.setState({recipes: response.data})//.Search
+            this.setState({recipes: response.data.recipes})//.Search
         })
         .catch((error)=> {
             console.log(error);
