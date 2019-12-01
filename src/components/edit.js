@@ -9,17 +9,13 @@ class Edit extends React.Component{
             RecipeName: '',
             RecipeCategory: '',
             Picture: '',
-            Ingredients: '',
-            Method: '',
-            Images: '',
+            Website: '',
             _id:''
         };
-        this.handleChangeRecipeRecipeName = this.handleChangeRecipeRecipeName.bind(this);
-        this.handleChangeRecipeRecipeCategory = this.handleChangeRecipeRecipeCategory.bind(this);
+        this.handleChangeRecipeName = this.handleChangeRecipeName.bind(this);
+        this.handleChangeRecipeCategory = this.handleChangeRecipeCategory.bind(this);
         this.handleChangeRecipePicture = this.handleChangeRecipePicture.bind(this);
-        this.handleChangeRecipeIngredients = this.handleChangeRecipeIngredients.bind(this);
-        this.handleChangeRecipeMethod = this.handleChangeRecipeMethod.bind(this);
-        this.handleChangeRecipeImages = this.handleChangeRecipeImages.bind(this);
+        this.handleChangeRecipeWebsite = this.handleChangeRecipeWebsite.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
     }//constructor
 
@@ -32,37 +28,44 @@ class Edit extends React.Component{
               _id:response.data._id,
               RecipeName: response.data.recipename,
               RecipeCategory: response.data.recipecategory,
-              Picture: response.data.Picture
+              Picture: response.data.picture,
+              Website: response.data.website
               //more to be inputted, when I'm clearer about what is happening here
             })
         })
         .catch();
     }
 
-    handleChangeRecipeRecipeName(e){
-        this.setState({ RecipeName: e.target.value});
+    handleChangeRecipeName(e){
+        this.setState({RecipeName: e.target.value});
     }
-    handleChangeRecipeRecipeCategory(e){
+    handleChangeRecipeCategory(e){
         this.setState({RecipeCategory: e.target.value});
     }
     handleChangeRecipePicture(e){
         this.setState({Picture: e.target.value});
     }
 
+    handleChangeRecipeWebsite(e){
+        this.setState({Website: e.target.value});
+    }
+
+   
+
+    
+
     handleSubmit(e){
         e.preventDefault();
        
-       alert("A recipe record was Edited: Recipe Name" + this.state.RecipeName +"  " + this.state.RecipeCategory
-        + "  "+ this.state.Picture);// + " "+ this.state.Ingredients + " "+ this.state.Method + " "+ this.state.Images);
+       alert("A recipe record was Edited: Recipe Name" + this.state.RecipeName +" Category:  " + this.state.RecipeCategory
+        + " Picture:  "+ this.state.Picture + " Website: "+ this.state.Website);// + " "+ this.state.Ingredients + " "+ this.state.Method + " "+ this.state.Images);
 
         const newRecipe ={
 
             recipename:this.state.RecipeName,
             recipecategory:this.state.RecipeCategory,
             picture:this.state.Picture,
-            //ingredients:this.state.Ingredients,
-           // method:this.state.Method,
-            //images:this.state.Images
+            website: this.state.Website
         };
         axios.put('http://localhost:4000/api/recipes/'+ this.state._id, newRecipe)
         .then()
@@ -81,12 +84,12 @@ class Edit extends React.Component{
                     <form onSubmit={this.handleSubmit}>
     
                      <div className='form-group'>
-                        <label style={{color:"white"}}>Add Recipe Name</label>
+                        <label >Add Recipe Name</label>
                         <input
                         type='text'
                         className='form-control'
                         value={this.state.RecipeName}
-                        onChange={this.handleChangeRecipeRecipeName}
+                        onChange={this.handleChangeRecipeName}
                         ></input>
                         </div>
     
@@ -96,7 +99,7 @@ class Edit extends React.Component{
                         type='text'
                         className='form-control'
                         value={this.state.RecipeCategory}
-                        onChange={this.handleChangeRecipeRecipeCategory}
+                        onChange={this.handleChangeRecipeCategory}
                         ></input>
                         </div>
     
@@ -109,33 +112,19 @@ class Edit extends React.Component{
                         onChange={this.handleChangeRecipePicture}
                         ></textarea>
                         </div>
+
                         <div className='form-group'>
-                            <label>Add Ingredients</label>
-                            <textarea
-                            row='6'
-                            className='form-control'
-                            value={this.state.Ingredients}
-                            onChange={this.handleChangeRecipeIngredients}
-                            ></textarea>
+                        <label>Add Website Url</label>
+                        <textarea
+                        row='3'
+                        className='form-control'
+                        value={this.state.Website}
+                        onChange={this.handleChangeRecipeWebsite}
+                        ></textarea>
                         </div>
-                        <div className='form-group'>
-                            <label>Add Method</label>
-                            <textarea
-                            row='6'
-                            className='form-control'
-                            value={this.state.Method}
-                            onChange={this.handleChangeRecipeMethod}
-                            ></textarea>
-                        </div>
-                        <div className='form-group'>
-                            <label>Upload Image</label>
-                            <textarea
-                            row='6'
-                            className='form-control'
-                            value={this.state.Images}
-                            onChange={this.handleChangeRecipeImages}
-                            ></textarea>
-                        </div>
+                        
+                        
+                        
     
                         <div className='form-group'>
                         <input type="submit" value="Submit"/>

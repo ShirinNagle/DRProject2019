@@ -10,15 +10,18 @@ class Content extends React.Component {
         <div className="App">
             <br></br>
             <br></br>
-        <h1> Hello from Recipe Store!</h1>
+        <h1> Welcome to your own personal Recipe Storage!</h1>
+        <h3>To begin using your Recipe Storage app click on Add Recipe on the Navigation Bar</h3>
         <br></br>
         <br></br>
-        <h2>The current local time is {new Date().toLocaleTimeString()}.</h2>
         <br></br>
         <br></br>
         <br></br>
-        <br></br>      
+        <br></br>    
+        <h6>The current local time is {new Date().toLocaleTimeString()}.</h6>
+          
         </div>
+        
         );
     }
 }

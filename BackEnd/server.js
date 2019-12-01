@@ -33,36 +33,16 @@ app.use(function(req, res, next) {
        recipename: String,
        recipecategory: String,
        picture: String,
-      ingredients: String,
-       method: String,
-      images: String
+       website: String,
+       ingredients: String
+      
+      // method: String,
+      //images: String
+      
    });
-   //const RecipeModel = mongoose.model('RecipeModel', recipeSchema);
+   
    const RecipeModel = mongoose.model('recipe', recipeSchema);
-
-  // app.get('/', (req, res) => res.send('Hello World!'))
-
-   //app.get('/recipeStore', (req, res) => res.sendFile(path.join(_dirname +'/index.html')))//what's this for?
-
-  /*app.get('/whatever', (req, res) => {
-    res.send('whatever')
-  })*/
-
-//express server
-/*app.get('/api/test',(req, res)=>{
-
-    /*RecipeModel.find((error,data)=>{
-        console.log(data);
-        res.json(data);
-
-    const myRecipes =[];
-
-res.status(200).json(
-    {
-        recipes: myRecipes,
-        message: 'Data Sent'
-    });
-})*/
+ 
 
 app.get('/api/recipes',(req, res)=>{
     RecipeModel.find((error, data)=>{
@@ -71,8 +51,22 @@ app.get('/api/recipes',(req, res)=>{
 
 })
 
-//method that reads a recipe by id from database in node server/express
-app.get('/api/recipes/:id', (req, res)=> {//Website possibly should be id
+/*app.get('/api/recipes/search/:name', (req, res)=>{
+    console.log(req.params.name);
+    RecipeModel.find({category:req.params.name}, (error,data)=>{
+        res.json(data);
+    })
+})*/
+
+app.get('/api/recipes/search/:recipename', (req, res)=>{
+    console.log(req.params.recipename);
+    //RecipeModel.find({category:req.params.recipename}, (error,data)=>{
+    RecipeModel.find({recipename:req.params.recipename}, (error,data)=>{
+        res.json(data);
+    })
+})
+
+app.get('/api/recipes/:id', (req, res, next)=> {//Website possibly should be id
     console.log(req.params.id);
 
     RecipeModel.findById(req.params.id, (error, data)=>{
@@ -80,13 +74,22 @@ app.get('/api/recipes/:id', (req, res)=> {//Website possibly should be id
     })
 })
 
-//possibly shouldn't be here - check git solution
-app.get('/api/recipes/:id', (req, res, next)=> {//Website possibly should be id
-    console.log(req.params.id);
+//method that reads a recipe by id from database in node server/express
+app.get('/api/recipes/:id', (req, res)=> {
+    console.log("Get: " +req.params.id);
 
     RecipeModel.findById(req.params.id, (error, data)=>{
         res.json(data);
     })
+})
+
+app.delete('/api/recipes/:id', (req, res)=>{
+    console.log(req.params.id);
+
+    RecipeModel.deleteOne({_id: req.params.id},
+       (error, data)=>{
+            res.json(data);
+       })
 })
 
 app.put('/api/recipes/:id', (req,res)=>{
@@ -103,39 +106,30 @@ app.put('/api/recipes/:id', (req,res)=>{
 
 
 
-
-app.delete('/api/recipes/:id', (req, res)=>{
-    console.log(req.params.id);
-
-    RecipeModel.deleteOne({_id: req.params.id},
-       (error, data)=>{
-            res.json(data);
-       })
-})
 //Express server 
 app.post('/api/recipes', (req,res) =>{
     console.log("Post request successful");
     console.log(req.body.recipename);//possibly uppr case
     console.log(req.body.recipecategory);//as above
     console.log(req.body.picture);//as above
-    console.log(req.body.ingredients);
-    console.log(req.body.method);
-    console.log(req.body.images);
+    console.log(req.body.website);
+    //console.log(req.body.ingredients);
+    //console.log(req.body.method);
+    //console.log(req.body.images);
 
     
-
     RecipeModel.create({
         recipename: req.body.recipename,
         recipecategory: req.body.recipecategory,
         picture: req.body.picture,
-        ingredients: req.body.ingredients,
-        method: req.body.method,
-        image: req.body.images 
+        website: req.body.website
+        //ingredients: req.body.ingredients
+        //method: req.body.method,
+        //image: req.body.images 
+        
     })
     res.json('Post received');
 })
 
-
-
-app.listen(port, () => console.log('Example app listening on port ${port}!'))
+app.listen(port, () => console.log('Recipe Store app listening on port ${port}!'))
 
